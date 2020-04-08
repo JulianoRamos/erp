@@ -1,10 +1,11 @@
 import React from "react";
 
-import "./reset.css";
-import "./global.css";
+import "typeface-roboto";
+
+import Routes from "./routes";
 
 const App = () => {
-  return <div>ERP</div>;
+  return <Routes />;
 };
 
 export default App;
