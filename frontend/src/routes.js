@@ -7,16 +7,14 @@ import Logon from "./pages/Logon";
 import Register from "./pages/Register";
 import ResetPassword from "./pages/ResetPassword";
 
+import Empresa from "./pages/Empresa";
+
 const Routes = () => {
   return (
     <BrowserRouter>
       <Switch>
         <PrivateRoutes exact path="/" component={() => <div>Dash Board</div>} />
-        <PrivateRoutes
-          exact
-          path="/empresa"
-          component={() => <div>Empresa</div>}
-        />
+        <PrivateRoutes exact path="/empresa" component={Empresa} />
         <PrivateRoutes
           exact
           path="/gerenciamento-de-usuarios"
