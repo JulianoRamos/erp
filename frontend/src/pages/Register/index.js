@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   Container,
   TextField,
@@ -9,6 +10,8 @@ import {
   CardContent,
   Typography,
 } from "@material-ui/core";
+
+import MyLink from "./../Components/Link";
 
 import useStyles from "./styles";
 
@@ -66,9 +69,9 @@ const Register = () => {
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link href="/" variant="body2">
-                      Já tem uma conta? Entrar
-                    </Link>
+                    <MyLink to="/">
+                      <Link variant="body2">Já tem uma conta? Entrar</Link>
+                    </MyLink>
                   </Grid>
                 </Grid>
               </form>

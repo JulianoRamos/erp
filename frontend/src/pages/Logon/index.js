@@ -13,6 +13,10 @@ import {
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
+import MyLink from "./../Components/Link";
+
+import { login } from "../../services/auth";
+
 import useStyles from "./styles";
 
 const Logon = () => {
@@ -23,11 +27,8 @@ const Logon = () => {
     e.preventDefault();
 
     try {
-      // const response = await api.post("sessions", { id });
-
-      // localStorage.setItem("ongId", id);
-      // localStorage.setItem("ongName", response.data.name);
-      history.push("/home");
+      login("teste");
+      history.push("/");
     } catch (error) {}
   }
 
@@ -92,14 +93,14 @@ const Logon = () => {
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link href="/resetpassword" variant="body2">
-                      Não consegue entrar?
-                    </Link>
+                    <MyLink to="/resetpassword">
+                      <Link variant="body2">Não consegue entrar?</Link>
+                    </MyLink>
                   </Grid>
                   <Grid item>
-                    <Link href="/register" variant="body2">
-                      {"Criar uma conta"}
-                    </Link>
+                    <MyLink to="/register">
+                      <Link variant="body2">Criar uma conta</Link>
+                    </MyLink>
                   </Grid>
                 </Grid>
               </form>

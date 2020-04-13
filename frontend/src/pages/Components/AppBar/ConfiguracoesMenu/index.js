@@ -1,6 +1,9 @@
 import React from "react";
-import { IconButton, Menu, MenuItem } from "@material-ui/core";
+
+import { IconButton, Menu } from "@material-ui/core";
 import { Settings as SettingsIcon } from "@material-ui/icons";
+
+import MyMenuItem from "./../MenuItem";
 
 const ConfiguracoesMenu = () => {
   const [anchorElConfiguracao, setAnchorElConfiguracao] = React.useState(null);
@@ -25,9 +28,34 @@ const ConfiguracoesMenu = () => {
       open={isMenuConfiguracaoOpen}
       onClose={handleSettingsMenuClose}
     >
-      <MenuItem>Gerenciamento de usuários</MenuItem>
-      <MenuItem>Cobrança</MenuItem>
-      <MenuItem>Sistema</MenuItem>
+      <MyMenuItem
+        to="/empresa"
+        tooltip="Gerencie suas configurações gerais e muito mais."
+        onClick={handleSettingsMenuClose}
+      >
+        Empresa
+      </MyMenuItem>
+      <MyMenuItem
+        to="/gerenciamento-de-usuarios"
+        tooltip="Adicione usuários e grupos e gerencie pedidos de acesso."
+        onClick={handleSettingsMenuClose}
+      >
+        Gerenciamento de usuários
+      </MyMenuItem>
+      <MyMenuItem
+        to="/cobranca"
+        tooltip="Atualize seus dados de cobrança, gerencie suas assinaturas e muito mais."
+        onClick={handleSettingsMenuClose}
+      >
+        Cobrança
+      </MyMenuItem>
+      <MyMenuItem
+        to="/sistema"
+        tooltip="Gerencie suas configurações gerais, permissões globais, aparência e muito mais."
+        onClick={handleSettingsMenuClose}
+      >
+        Sistema
+      </MyMenuItem>
     </Menu>
   );
 

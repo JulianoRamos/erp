@@ -10,6 +10,8 @@ import {
   Typography,
 } from "@material-ui/core";
 
+import MyLink from "./../Components/Link";
+
 import useStyles from "./styles";
 
 const ResetPassword = () => {
@@ -49,9 +51,9 @@ const ResetPassword = () => {
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link href="/" variant="body2">
-                      Voltar à página de entrada
-                    </Link>
+                    <MyLink to="/">
+                      <Link variant="body2">Voltar à página de entrada</Link>
+                    </MyLink>
                   </Grid>
                 </Grid>
               </form>
