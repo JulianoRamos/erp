@@ -7,7 +7,12 @@ import {
 
 export default class EmpresaApi {
   static empresaIndex() {
-    return empresaIndex([{ id: 2 }]);
+    const index = [];
+    for (let i = 0; i < 10000; i++) {
+      index.push({ id: i });
+    }
+
+    return empresaIndex(index);
 
     // return (dispatch) => {
     //   dispatch(linearqueryActive(true));

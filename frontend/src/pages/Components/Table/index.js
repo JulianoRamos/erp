@@ -67,10 +67,6 @@ const MyTable = ({ title, columns, load, index, del }) => {
       columns={columns}
       data={index}
       style={{
-        marginTop: "10px",
-        marginLeft: "20px",
-        marginRight: "20px",
-        marginBottom: "10px",
         boxShadow: "none",
         borderWidth: 1,
         borderStyle: "solid",
@@ -114,10 +110,7 @@ const MyTable = ({ title, columns, load, index, del }) => {
         (rowData) => ({
           icon: CreateIcon,
           tooltip: "Editar",
-          onClick: (event, rowData) => {
-            // editar(rowData);
-            history.push(`${match.path}/editar`);
-          },
+          onClick: (event, rowData) => history.push(`${match.path}/editar`),
         }),
       ]}
     />
