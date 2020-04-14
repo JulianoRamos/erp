@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core/styles";
 
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import {
@@ -17,6 +16,8 @@ import {
   TextField,
 } from "@material-ui/core";
 import SwipeableViews from "react-swipeable-views";
+
+import EmpresaApi from "./../../services/empresaApi";
 
 // import { Container } from './styles';
 
@@ -220,10 +221,15 @@ const EmpresaForm = () => {
 
 const mapStateToProps = (state) => ({});
 
-// const mapDispatchToProps = dispatch =>
-//   bindActionCreators(Actions, dispatch);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    create: () => {
+      dispatch(EmpresaApi.empresaCreate());
+    },
+    update: () => {
+      dispatch(EmpresaApi.empresaUpdate());
+    },
+  };
+};
 
-export default connect(
-  mapStateToProps
-  // mapDispatchToProps
-)(EmpresaForm);
+export default connect(mapStateToProps, mapDispatchToProps)(EmpresaForm);

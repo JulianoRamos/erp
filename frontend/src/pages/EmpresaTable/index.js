@@ -17,8 +17,14 @@ const COLUMNS = [
   { title: "Telefone", field: "telefone" },
 ];
 
-const Empresa = ({ load, index }) => (
-  <MyTable title={TITLE} columns={COLUMNS} load={load} index={index} />
+const Empresa = ({ load, index, del }) => (
+  <MyTable
+    title={TITLE}
+    columns={COLUMNS}
+    load={load}
+    index={index}
+    del={del}
+  />
 );
 
 const mapStateToProps = (state) => ({
@@ -29,6 +35,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     load: () => {
       dispatch(EmpresaApi.empresaIndex());
+    },
+    del: (index, id) => {
+      dispatch(EmpresaApi.empresaDelete(index, id));
     },
   };
 };

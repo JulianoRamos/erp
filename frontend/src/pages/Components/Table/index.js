@@ -8,7 +8,7 @@ import {
   Create as CreateIcon,
 } from "@material-ui/icons";
 
-const MyTable = ({ title, columns, load, index, deletar, editar }) => {
+const MyTable = ({ title, columns, load, index, del }) => {
   const history = useHistory();
   const match = useRouteMatch();
 
@@ -16,7 +16,7 @@ const MyTable = ({ title, columns, load, index, deletar, editar }) => {
 
   useEffect(() => {
     load();
-  }, []);
+  }, [load]);
 
   return (
     <MaterialTable
@@ -71,15 +71,19 @@ const MyTable = ({ title, columns, load, index, deletar, editar }) => {
         marginLeft: "20px",
         marginRight: "20px",
         marginBottom: "10px",
+        boxShadow: "none",
+        borderWidth: 1,
+        borderStyle: "solid",
+        borderColor: "rgba(0, 0, 0, 0.12)",
       }}
       editable={{
-        onRowDelete: (oldData) =>
+        onRowDelete: (oldIndex) =>
           new Promise((resolve) => {
             setTimeout(() => {
               resolve();
-              const dataDelete = [...index];
-              dataDelete.splice(dataDelete.indexOf(oldData), 1);
-              deletar(dataDelete, oldData.id);
+              const indexDelete = [...index];
+              indexDelete.splice(indexDelete.indexOf(oldIndex), 1);
+              del(indexDelete, oldIndex.id);
             }, 600);
           }),
       }}

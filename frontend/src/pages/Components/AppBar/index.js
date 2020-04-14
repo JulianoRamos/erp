@@ -10,6 +10,7 @@ import { AppBar, Toolbar } from "@material-ui/core";
 
 import Menu from "./Menu";
 import TituloMenu from "./TituloMenu";
+import Pesquisar from "./Pesquisar";
 import DashboardMenu from "./DashboardMenu";
 import NotificacoesMenu from "./NotificacoesMenu";
 import ConfiguracoesMenu from "./ConfiguracoesMenu";
@@ -31,6 +32,7 @@ const MyAppBar = ({ open }) => {
         <Toolbar>
           <Menu />
           <TituloMenu />
+          <Pesquisar />
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <DashboardMenu />
