@@ -11,10 +11,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
+import br.com.empresa.microservice.auth.enumeration.Authorities;
+
 @Configuration
+@EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
 	private static PasswordEncoder encoder;
@@ -23,9 +27,12 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
 	private String[] authorizedGrantTypes = { "password", "refresh_token" };
 
-	private String[] scopes = { "web", "mobile" };
+	private String resourceIds = "resources";
+
+	private String[] scopes = { "read", "write" };
 
 	private String secret = "!cos8D#3nd";
+//	private String secret = "$2a$10$p9Pk0fQNAQSesI4vuvKA0OZanDD2";
 
 	private Integer accessTokenValiditySeconds = 1800;
 
@@ -48,8 +55,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory().withClient(clientId).secret(encoder.encode(secret))
-				.authorizedGrantTypes(authorizedGrantTypes).scopes(scopes)
+		clients.inMemory().withClient(clientId).authorizedGrantTypes(authorizedGrantTypes)
+				.authorities(Authorities.names()).resourceIds(resourceIds).scopes(scopes).secret(encoder.encode(secret))
 				.accessTokenValiditySeconds(accessTokenValiditySeconds);
 	}
 
