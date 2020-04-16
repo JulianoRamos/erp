@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 import * as Actions from "./store/actions/main";
 
-import { isAuthenticated } from "./services/auth";
+import { isAuthenticated } from "./services/utils/auth";
 
 import Home from "./pages/Home";
 

@@ -3,7 +3,7 @@ import { IconButton, Menu } from "@material-ui/core";
 import { AccountCircle as AccountCircleIcon } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 
-import { logout } from "./../../../../services/auth";
+import { logout } from "./../../../../services/utils/auth";
 
 import MyMenuItem from "./../MenuItem";
 

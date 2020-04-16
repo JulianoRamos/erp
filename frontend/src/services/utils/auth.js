@@ -7,3 +7,12 @@ export const login = (token) => {
 export const logout = () => {
   localStorage.removeItem(TOKEN_KEY);
 };
+export const config = {
+  headers: {
+    "content-type": "multipart/form-data",
+  },
+  auth: {
+    username: "erp",
+    password: "!cos8D#3nd",
+  },
+};

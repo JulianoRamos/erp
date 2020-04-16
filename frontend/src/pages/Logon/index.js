@@ -15,9 +15,11 @@ import { useHistory } from "react-router-dom";
 
 import MyLink from "./../Components/Link";
 
-import { login } from "../../services/auth";
+import { login } from "../../services/utils/auth";
 
 import useStyles from "./styles";
+
+import AuthApi from "./../../services/authApi";
 
 const Logon = () => {
   const classes = useStyles();
@@ -27,7 +29,8 @@ const Logon = () => {
     e.preventDefault();
 
     try {
-      login("teste");
+      const token = await AuthApi.token("teste2@gmail.com", "12345678");
+      login(token);
       history.push("/");
     } catch (error) {}
   }

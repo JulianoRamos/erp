@@ -5,77 +5,72 @@ import {
   empresaDelete,
 } from "../store/actions/empresa";
 
+import { getToken } from "./utils/auth";
+import api from "./api";
+
 export default class EmpresaApi {
   static empresaIndex() {
-    const index = [];
-    for (let i = 0; i < 10000; i++) {
-      index.push({ id: i });
-    }
-
-    return empresaIndex(index);
-
-    // return (dispatch) => {
-    //   dispatch(linearqueryActive(true));
-    //   const token = getToken();
-    //   api
-    //     .get("/empresa/listar", { headers: { Authentication: `${token}` } })
-    //     .then((response) => response.data)
-    //     .then((empresas) => {
-    //       dispatch(empresaListar(empresas));
-    //       dispatch(linearqueryActive(false));
-    //       return empresas;
-    //     });
-    // };
+    const token = getToken();
+    return (dispatch) =>
+      api
+        .get("/empresa/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => response.data)
+        .then((empresas) => {
+          dispatch(empresaIndex(empresas));
+          return empresas;
+        });
   }
 
   static empresaCreate() {
-    return empresaCreate({ id: 3 });
-
-    // return (dispatch) => {
-    //   dispatch(linearqueryActive(true));
-    //   const token = getToken();
-    //   api
-    //     .get("/empresa/listar", { headers: { Authentication: `${token}` } })
-    //     .then((response) => response.data)
-    //     .then((empresas) => {
-    //       dispatch(empresaListar(empresas));
-    //       dispatch(linearqueryActive(false));
-    //       return empresas;
-    //     });
-    // };
+    const token = getToken();
+    return (dispatch) =>
+      api
+        .post("/empresa/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => response.data)
+        .then((empresa) => {
+          dispatch(empresaCreate(empresa));
+          return empresa;
+        });
   }
 
   static empresaUpdate() {
-    return empresaUpdate({ id: 2 });
-
-    // return (dispatch) => {
-    //   dispatch(linearqueryActive(true));
-    //   const token = getToken();
-    //   api
-    //     .get("/empresa/listar", { headers: { Authentication: `${token}` } })
-    //     .then((response) => response.data)
-    //     .then((empresas) => {
-    //       dispatch(empresaListar(empresas));
-    //       dispatch(linearqueryActive(false));
-    //       return empresas;
-    //     });
-    // };
+    const token = getToken();
+    return (dispatch) =>
+      api
+        .put("/empresa/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => response.data)
+        .then((empresa) => {
+          dispatch(empresaUpdate(empresa));
+          return empresa;
+        });
   }
 
   static empresaDelete(index, id) {
-    return empresaDelete([{ id: 1 }], 2);
-
-    // return (dispatch) => {
-    //   dispatch(linearqueryActive(true));
-    //   const token = getToken();
-    //   api
-    //     .get("/empresa/listar", { headers: { Authentication: `${token}` } })
-    //     .then((response) => response.data)
-    //     .then((empresas) => {
-    //       dispatch(empresaListar(empresas));
-    //       dispatch(linearqueryActive(false));
-    //       return empresas;
-    //     });
-    // };
+    const token = getToken();
+    return (dispatch) =>
+      api
+        .delete(`/empresa/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => response.data)
+        .then((id) => {
+          dispatch(empresaDelete(index, id));
+          return id;
+        });
   }
 }

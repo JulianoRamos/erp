@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  index: [],
+  index: {},
   create: {},
   update: {},
   id: -1,
