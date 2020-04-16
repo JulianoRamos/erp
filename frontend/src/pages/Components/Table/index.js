@@ -67,7 +67,7 @@ const MyTable = ({ title, columns, load, index, del }) => {
       localization={localization}
       title={title}
       columns={columns}
-      data={index.content}
+      data={index}
       style={{
         boxShadow: "none",
         borderWidth: 1,
@@ -79,7 +79,7 @@ const MyTable = ({ title, columns, load, index, del }) => {
           new Promise((resolve) => {
             setTimeout(() => {
               resolve();
-              const indexDelete = [...index.content];
+              const indexDelete = [...index];
               indexDelete.splice(indexDelete.indexOf(oldIndex), 1);
               del(indexDelete, oldIndex.id);
             }, 600);

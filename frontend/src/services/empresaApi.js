@@ -20,8 +20,8 @@ export default class EmpresaApi {
         })
         .then((response) => response.data)
         .then((empresas) => {
-          dispatch(empresaIndex(empresas));
-          return empresas;
+          dispatch(empresaIndex(empresas.content));
+          return empresas.content;
         });
   }
 
