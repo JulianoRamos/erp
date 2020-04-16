@@ -1,80 +1,53 @@
-package br.com.empresa.microservice.empresa.dto;
+package br.com.empresa.microservice.empresa.form;
 
-import java.time.LocalDate;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-import org.springframework.data.domain.Page;
+import org.hibernate.validator.constraints.Length;
 
 import br.com.empresa.microservice.empresa.model.Empresa;
 
-public class EmpresaDTO {
+public class EmpresaForm {
 
-	private Long id;
-
+	@NotNull @NotEmpty @Length(max = 40)
 	private String razaoSocial;
 
+	@NotNull @NotEmpty @Length(max = 40)
 	private String nomeFantasia;
 
+	@NotNull @NotEmpty @Length(min = 14, max = 14)
 	private String cnpj;
 
+	@NotNull @NotEmpty @Length(max = 14)
 	private String inscricaoEstadual;
 
+	@NotNull @NotEmpty
 	private String telefone;
 
+	@NotNull @NotEmpty
 	private String email;
 
+	@NotNull @NotEmpty
 	private String cep;
 
+	@NotNull @NotEmpty
 	private String logradouro;
 
+	@NotNull @NotEmpty
 	private String bairro;
 
+	@NotNull @NotEmpty
 	private String numero;
-
+	
 	private String complemento;
 
+	@NotNull @NotEmpty
 	private String contador;
 
 	private String cnaePrincipal;
 
+	@NotNull @NotEmpty
 	private String regimeTributario;
-
-	private LocalDate dataAlteracao;
-
-	private LocalDate dataCadastro;
-
-	private String usuarioAlteracao;
-
-	private String usuario;
-
-	public EmpresaDTO(Empresa empresa) {
-		this.id = empresa.getId();
-		this.razaoSocial = empresa.getRazaoSocial();
-		this.nomeFantasia = empresa.getNomeFantasia();
-		this.cnpj = empresa.getCnpj();
-		this.inscricaoEstadual = empresa.getInscricaoEstadual();
-		this.telefone = empresa.getTelefone();
-		this.email = empresa.getEmail();
-		this.cep = empresa.getCep();
-		this.logradouro = empresa.getLogradouro();
-		this.bairro = empresa.getBairro();
-		this.numero = empresa.getNumero();
-		this.complemento = empresa.getComplemento();
-		this.contador = empresa.getContador();
-		this.cnaePrincipal = empresa.getCnaePrincipal();
-		this.regimeTributario = empresa.getRegimeTributario();
-		this.dataAlteracao = empresa.getDataAlteracao();
-		this.dataCadastro = empresa.getDataCadastro();
-		this.usuarioAlteracao = empresa.getUsuarioAlteracao();
-		this.usuario = empresa.getUsuario();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getRazaoSocial() {
 		return razaoSocial;
@@ -188,39 +161,8 @@ public class EmpresaDTO {
 		this.regimeTributario = regimeTributario;
 	}
 
-	public LocalDate getDataAlteracao() {
-		return dataAlteracao;
-	}
-
-	public void setDataAlteracao(LocalDate dataAlteracao) {
-		this.dataAlteracao = dataAlteracao;
-	}
-
-	public LocalDate getDataCadastro() {
-		return dataCadastro;
-	}
-
-	public void setDataCadastro(LocalDate dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
-
-	public String getUsuarioAlteracao() {
-		return usuarioAlteracao;
-	}
-
-	public void setUsuarioAlteracao(String usuarioAlteracao) {
-		this.usuarioAlteracao = usuarioAlteracao;
-	}
-
-	public String getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-
-	public static Page<EmpresaDTO> converter(Page<Empresa> empresas) {
-		return empresas.map(EmpresaDTO::new);
+	public Empresa converter() {
+		return new Empresa(razaoSocial, nomeFantasia, cnpj, inscricaoEstadual, telefone, email, cep, logradouro, bairro,
+				numero, complemento, contador, cnaePrincipal, regimeTributario);
 	}
 }

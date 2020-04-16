@@ -53,6 +53,28 @@ public class Empresa implements Serializable {
 	
 	private String usuario;
 
+	public Empresa() {
+	}
+
+	public Empresa(String razaoSocial, String nomeFantasia, String cnpj, String inscricaoEstadual,
+			String telefone, String email, String cep, String logradouro, String bairro, String numero,
+			String complemento, String contador, String cnaePrincipal, String regimeTributario) {
+		this.razaoSocial = razaoSocial;
+		this.nomeFantasia = nomeFantasia;
+		this.cnpj = cnpj;
+		this.inscricaoEstadual = inscricaoEstadual;
+		this.telefone = telefone;
+		this.email = email;
+		this.cep = cep;
+		this.logradouro = logradouro;
+		this.bairro = bairro;
+		this.numero = numero;
+		this.complemento = complemento;
+		this.contador = contador;
+		this.cnaePrincipal = cnaePrincipal;
+		this.regimeTributario = regimeTributario;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -203,5 +225,30 @@ public class Empresa implements Serializable {
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Empresa other = (Empresa) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}	
 }
