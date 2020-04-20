@@ -21,7 +21,11 @@ const Routes = () => {
           path="/empresa/adicionar"
           component={EmpresaForm}
         />
-        <PrivateRoutes exact path="/empresa/editar" component={EmpresaForm} />
+        <PrivateRoutes
+          exact
+          path="/empresa/editar/:id"
+          component={EmpresaForm}
+        />
 
         <PrivateRoutes
           exact

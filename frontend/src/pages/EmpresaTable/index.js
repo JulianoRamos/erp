@@ -36,8 +36,8 @@ const mapDispatchToProps = (dispatch) => {
     load: () => {
       dispatch(EmpresaApi.empresaIndex());
     },
-    del: (index, id) => {
-      dispatch(EmpresaApi.empresaDelete(index, id));
+    del: (data, id) => {
+      dispatch(EmpresaApi.empresaDelete(data, id));
     },
   };
 };

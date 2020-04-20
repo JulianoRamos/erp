@@ -112,7 +112,8 @@ const MyTable = ({ title, columns, load, index, del }) => {
         (rowData) => ({
           icon: CreateIcon,
           tooltip: "Editar",
-          onClick: (event, rowData) => history.push(`${match.path}/editar`),
+          onClick: (event, rowData) =>
+            history.push(`${match.path}/editar/${rowData.id}`),
         }),
       ]}
     />

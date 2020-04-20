@@ -1,5 +1,6 @@
 import {
   empresaIndex,
+  empresaOne,
   empresaCreate,
   empresaUpdate,
   empresaDelete,
@@ -11,7 +12,8 @@ import api from "./api";
 export default class EmpresaApi {
   static empresaIndex() {
     const token = getToken();
-    return (dispatch) =>
+    return (dispatch) => {
+      dispatch(empresaIndex([]));
       api
         .get("/empresa/", {
           headers: {
@@ -23,13 +25,33 @@ export default class EmpresaApi {
           dispatch(empresaIndex(empresas.content));
           return empresas.content;
         });
+    };
   }
 
-  static empresaCreate() {
+  static empresaOne(id) {
     const token = getToken();
-    return (dispatch) =>
+    return (dispatch) => {
+      dispatch(empresaOne({}));
       api
-        .post("/empresa/", {
+        .get(`/empresa/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => response.data)
+        .then((empresa) => {
+          dispatch(empresaOne(empresa));
+          return empresa;
+        });
+    };
+  }
+
+  static empresaCreate(data) {
+    const token = getToken();
+    return (dispatch) => {
+      dispatch(empresaCreate({}));
+      api
+        .post("/empresa/", data, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -39,13 +61,15 @@ export default class EmpresaApi {
           dispatch(empresaCreate(empresa));
           return empresa;
         });
+    };
   }
 
-  static empresaUpdate() {
+  static empresaUpdate(data, id) {
     const token = getToken();
-    return (dispatch) =>
+    return (dispatch) => {
+      dispatch(empresaUpdate({}));
       api
-        .put("/empresa/", {
+        .put(`/empresa/${id}`, data, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -55,11 +79,13 @@ export default class EmpresaApi {
           dispatch(empresaUpdate(empresa));
           return empresa;
         });
+    };
   }
 
-  static empresaDelete(index, id) {
+  static empresaDelete(data, id) {
     const token = getToken();
-    return (dispatch) =>
+    return (dispatch) => {
+      dispatch(empresaDelete(-1));
       api
         .delete(`/empresa/${id}`, {
           headers: {
@@ -69,8 +95,9 @@ export default class EmpresaApi {
         })
         .then((response) => response.data)
         .then((id) => {
-          dispatch(empresaDelete(index, id));
+          dispatch(empresaDelete(data, id));
           return id;
         });
+    };
   }
 }

@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "@material-ui/core/styles";
-
-import { connect } from "react-redux";
-
+import { useHistory, useParams } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -10,81 +8,141 @@ import {
   AppBar,
   Tabs,
   Tab,
-  Box,
   CardActions,
   Button,
   TextField,
+  GridList,
+  GridListTile,
+  GridListTileBar,
+  IconButton,
 } from "@material-ui/core";
+import { CloudUpload as CloudUploadIcon } from "@material-ui/icons";
+
+import { connect } from "react-redux";
+
 import SwipeableViews from "react-swipeable-views";
 
 import EmpresaApi from "./../../services/empresaApi";
 
-// import { Container } from './styles';
+import TabPanel from "./../Components/TabPanel";
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+import useStyles from "./styles";
 
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box p={1}>{children}</Box>}
-    </Typography>
-  );
-}
-
-function a11yProps(index) {
+const a11yProps = (index) => {
   return {
     id: `full-width-tab-${index}`,
     "aria-controls": `full-width-tabpanel-${index}`,
   };
-}
+};
 
-const EmpresaForm = () => {
+const EmpresaForm = ({ one, load, create, update }) => {
+  const classes = useStyles();
   const theme = useTheme();
+  const history = useHistory();
+  const { id } = useParams();
 
-  const [value, setValue] = useState(0);
+  const [razaoSocial, setRazaoSocial] = useState("");
+  const [nomeFantasia, setNomeFantasia] = useState("");
+  const [cnpj, setCnpj] = useState("");
+  const [inscricaoEstadual, setInscricaoEstadual] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [email, setEmail] = useState("");
+  const [cep, setCep] = useState("");
+  const [logradouro, setLogradouro] = useState("");
+  const [bairro, setBairro] = useState("");
+  const [numero, setNumero] = useState("");
+  const [complemento, setComplemento] = useState("");
+  const [contador, setContador] = useState("");
+  const [cnaePrincipal, setCnaePrincipal] = useState("");
+  const [regimeTributario, setRegimeTributario] = useState("");
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const [valueTabs, setValueTabs] = useState(0);
+
+  useEffect(() => {
+    load(id);
+  }, [id]);
+
+  useEffect(() => {
+    setRazaoSocial(one.razaoSocial);
+    setNomeFantasia(one.nomeFantasia);
+    setCnpj(one.cnpj);
+    setInscricaoEstadual(one.inscricaoEstadual);
+    setTelefone(one.telefone);
+    setEmail(one.email);
+    setCep(one.cep);
+    setLogradouro(one.logradouro);
+    setBairro(one.bairro);
+    setNumero(one.numero);
+    setComplemento(one.complemento);
+    setContador(one.contador);
+    setCnaePrincipal(one.cnaePrincipal);
+    setRegimeTributario(one.regimeTributario);
+  }, [one]);
+
+  const handleChangeTabs = (event, newValue) => {
+    setValueTabs(newValue);
   };
 
   const handleChangeIndex = (index) => {
-    setValue(index);
+    setValueTabs(index);
+  };
+
+  const handleOnSubimit = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      razaoSocial,
+      nomeFantasia,
+      cnpj,
+      inscricaoEstadual,
+      telefone,
+      email,
+      cep,
+      logradouro,
+      bairro,
+      numero,
+      complemento,
+      contador,
+      cnaePrincipal,
+      regimeTributario,
+    };
+
+    if (id) {
+      await update(data, id);
+    } else {
+      await create(data);
+    }
+  };
+
+  const handleOnClickCancelar = (e) => {
+    e.preventDefault();
+    history.push("/empresa");
   };
 
   return (
     <Card variant="outlined">
-      <form>
+      <form onSubmit={handleOnSubimit}>
         <CardContent>
-          <Typography color="textSecondary" gutterBottom>
-            Adicionar empresa
-          </Typography>
-          <Box p={1}>
-            <TextField
-              style={{ marginTop: 8, marginBottom: 8 }}
-              label="Razão Social"
-              variant="outlined"
-              margin="dense"
-              fullWidth
-            />
-            <TextField
-              style={{ marginTop: 8, marginBottom: 8 }}
-              label="Nome Fantasia"
-              variant="outlined"
-              margin="dense"
-              fullWidth
-            />
-          </Box>
+          <CardActions>
+            <Typography color="textSecondary" variant="h5" gutterBottom>
+              {id ? "Editar" : "Adicionar"} empresa
+            </Typography>
+            <div className={classes.grow} />
+            <Button
+              onClick={handleOnClickCancelar}
+              color="primary"
+              size="small"
+            >
+              Cancelar
+            </Button>
+            <Button type="submit" color="primary" size="small">
+              Salvar
+            </Button>
+          </CardActions>
           <AppBar position="static" color="default" variant="outlined">
             <Tabs
-              value={value}
-              onChange={handleChange}
+              value={valueTabs}
+              onChange={handleChangeTabs}
               indicatorColor="primary"
               textColor="primary"
               variant="fullWidth"
@@ -97,10 +155,38 @@ const EmpresaForm = () => {
           </AppBar>
           <SwipeableViews
             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-            index={value}
+            index={valueTabs}
             onChangeIndex={handleChangeIndex}
           >
-            <TabPanel value={value} index={0} dir={theme.direction}>
+            <TabPanel value={valueTabs} index={0} dir={theme.direction}>
+              <TextField
+                style={{ marginTop: 8, marginBottom: 8 }}
+                label="Razão Social"
+                variant="outlined"
+                margin="dense"
+                fullWidth
+                value={razaoSocial}
+                onChange={(e) => setRazaoSocial(e.target.value)}
+              />
+              <TextField
+                style={{ marginTop: 8, marginBottom: 8 }}
+                label="Nome Fantasia"
+                variant="outlined"
+                margin="dense"
+                fullWidth
+                value={nomeFantasia}
+                onChange={(e) => setNomeFantasia(e.target.value)}
+              />
+              <TextField
+                label="CNPJ"
+                style={{ marginTop: 8, marginBottom: 8 }}
+                fullWidth
+                margin="dense"
+                variant="outlined"
+                name="cnpj"
+                value={cnpj}
+                onChange={(e) => setCnpj(e.target.value)}
+              />
               <TextField
                 label="Inscrição Estadual (IE)"
                 style={{ marginTop: 8, marginBottom: 8 }}
@@ -108,6 +194,8 @@ const EmpresaForm = () => {
                 margin="dense"
                 variant="outlined"
                 name="inscricaoEstadual"
+                value={inscricaoEstadual}
+                onChange={(e) => setInscricaoEstadual(e.target.value)}
               />
               <TextField
                 label="Telefone"
@@ -116,6 +204,8 @@ const EmpresaForm = () => {
                 margin="dense"
                 variant="outlined"
                 name="telefone"
+                value={telefone}
+                onChange={(e) => setTelefone(e.target.value)}
               />
               <TextField
                 label="E-mail"
@@ -124,9 +214,30 @@ const EmpresaForm = () => {
                 margin="dense"
                 variant="outlined"
                 name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
+              <GridList cellHeight={180} className={classes.gridList}>
+                <GridListTile>
+                  <img
+                    src="https://www.terramarear.info/wp-content/uploads/2019/08/default.jpg"
+                    alt="titulo"
+                  />
+                  <GridListTileBar
+                    title="Carregar"
+                    actionIcon={
+                      <IconButton
+                        aria-label={`info about Titulo`}
+                        className={classes.icon}
+                      >
+                        <CloudUploadIcon />
+                      </IconButton>
+                    }
+                  />
+                </GridListTile>
+              </GridList>
             </TabPanel>
-            <TabPanel value={value} index={1} dir={theme.direction}>
+            <TabPanel value={valueTabs} index={1} dir={theme.direction}>
               <TextField
                 label="Cep"
                 style={{ marginTop: 8, marginBottom: 8 }}
@@ -134,6 +245,8 @@ const EmpresaForm = () => {
                 margin="dense"
                 variant="outlined"
                 name="cep"
+                value={cep}
+                onChange={(e) => setCep(e.target.value)}
               />
               <TextField
                 label="Logradouro"
@@ -142,6 +255,8 @@ const EmpresaForm = () => {
                 margin="dense"
                 variant="outlined"
                 name="logradouro"
+                value={logradouro}
+                onChange={(e) => setLogradouro(e.target.value)}
               />
               <TextField
                 label="Bairro"
@@ -150,6 +265,8 @@ const EmpresaForm = () => {
                 margin="dense"
                 variant="outlined"
                 name="bairro"
+                value={bairro}
+                onChange={(e) => setBairro(e.target.value)}
               />
               <TextField
                 label="Número"
@@ -158,6 +275,8 @@ const EmpresaForm = () => {
                 margin="dense"
                 variant="outlined"
                 name="numero"
+                value={numero}
+                onChange={(e) => setNumero(e.target.value)}
               />
               <TextField
                 label="Municipio"
@@ -174,9 +293,11 @@ const EmpresaForm = () => {
                 margin="dense"
                 variant="outlined"
                 name="complemento"
+                value={complemento}
+                onChange={(e) => setComplemento(e.target.value)}
               />
             </TabPanel>
-            <TabPanel value={value} index={2} dir={theme.direction}>
+            <TabPanel value={valueTabs} index={2} dir={theme.direction}>
               <TextField
                 label="Contador"
                 style={{ marginTop: 8, marginBottom: 8 }}
@@ -184,6 +305,8 @@ const EmpresaForm = () => {
                 margin="dense"
                 variant="outlined"
                 name="contador"
+                value={contador}
+                onChange={(e) => setContador(e.target.value)}
               />
               <TextField
                 label="CNAE Principal"
@@ -192,6 +315,8 @@ const EmpresaForm = () => {
                 margin="dense"
                 variant="outlined"
                 name="cnaePrincipal"
+                value={cnaePrincipal}
+                onChange={(e) => setCnaePrincipal(e.target.value)}
               />
               <TextField
                 required
@@ -202,32 +327,31 @@ const EmpresaForm = () => {
                 margin="dense"
                 variant="outlined"
                 name="regimeTributario"
+                value={regimeTributario}
+                onChange={(e) => setRegimeTributario(e.target.value)}
               />
             </TabPanel>
           </SwipeableViews>
         </CardContent>
-        <CardActions>
-          <Button color="primary" size="small">
-            Salvar
-          </Button>
-          <Button color="primary" size="small">
-            Cancelar
-          </Button>
-        </CardActions>
       </form>
     </Card>
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  one: state.empresa.one,
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    create: () => {
-      dispatch(EmpresaApi.empresaCreate());
+    load: (id) => {
+      dispatch(EmpresaApi.empresaOne(id));
     },
-    update: () => {
-      dispatch(EmpresaApi.empresaUpdate());
+    create: (data) => {
+      dispatch(EmpresaApi.empresaCreate(data));
+    },
+    update: (data, id) => {
+      dispatch(EmpresaApi.empresaUpdate(data, id));
     },
   };
 };
