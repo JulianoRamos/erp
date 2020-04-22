@@ -13,8 +13,6 @@ import {
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
-import MyLink from "./../Components/Link";
-
 import { login } from "../../services/utils/auth";
 
 import useStyles from "./styles";
@@ -25,7 +23,7 @@ const Logon = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  async function handleLogin(e) {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
@@ -33,7 +31,17 @@ const Logon = () => {
       login(token);
       history.push("/");
     } catch (error) {}
-  }
+  };
+
+  const handlerOnClickResetPassword = (e) => {
+    e.preventDefault();
+    history.push("/resetpassword");
+  };
+
+  const handlerOnClickRegister = (e) => {
+    e.preventDefault();
+    history.push("/register");
+  };
 
   return (
     <Container component="main" className={classes.paper}>
@@ -96,14 +104,14 @@ const Logon = () => {
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <MyLink to="/resetpassword">
-                      <Link variant="body2">Não consegue entrar?</Link>
-                    </MyLink>
+                    <Link onClick={handlerOnClickResetPassword} variant="body2">
+                      Não consegue entrar?
+                    </Link>
                   </Grid>
                   <Grid item>
-                    <MyLink to="/register">
-                      <Link variant="body2">Criar uma conta</Link>
-                    </MyLink>
+                    <Link onClick={handlerOnClickRegister} variant="body2">
+                      Criar uma conta
+                    </Link>
                   </Grid>
                 </Grid>
               </form>

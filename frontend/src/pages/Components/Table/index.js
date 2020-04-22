@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
+
 import MaterialTable from "material-table";
 import {
   FilterList as FilterListIcon,
@@ -52,22 +53,17 @@ const localization = {
   },
 };
 
-const MyTable = ({ title, columns, load, index, del }) => {
+const MyTable = ({ title, columns, index, del }) => {
   const history = useHistory();
   const match = useRouteMatch();
 
   const [filtering, setFiltering] = useState(false);
-
-  useEffect(() => {
-    load();
-  }, [load]);
-
   return (
     <MaterialTable
       localization={localization}
       title={title}
       columns={columns}
-      data={index}
+      data={index ? index : []}
       style={{
         boxShadow: "none",
         borderWidth: 1,

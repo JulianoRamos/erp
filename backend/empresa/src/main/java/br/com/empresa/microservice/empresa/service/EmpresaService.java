@@ -24,7 +24,7 @@ public class EmpresaService {
 		return empresasDTO;
 	}
 	
-	public Empresa create(EmpresaForm form) {
+	public Empresa save(EmpresaForm form) {
 		return empresaRepository.save(form.converter());
 	}
 

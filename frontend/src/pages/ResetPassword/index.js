@@ -1,4 +1,6 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+
 import {
   Container,
   TextField,
@@ -10,12 +12,17 @@ import {
   Typography,
 } from "@material-ui/core";
 
-import MyLink from "./../Components/Link";
-
 import useStyles from "./styles";
 
 const ResetPassword = () => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const handlerOnClickHome = (e) => {
+    e.preventDefault();
+    history.push("/");
+  };
+
   return (
     <Container component="main" className={classes.paper}>
       <Grid container justify="center" alignItems="center">
@@ -51,9 +58,9 @@ const ResetPassword = () => {
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <MyLink to="/">
-                      <Link variant="body2">Voltar à página de entrada</Link>
-                    </MyLink>
+                    <Link onClick={handlerOnClickHome} variant="body2">
+                      Voltar à página de entrada
+                    </Link>
                   </Grid>
                 </Grid>
               </form>

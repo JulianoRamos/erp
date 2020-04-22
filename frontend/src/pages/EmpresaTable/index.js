@@ -1,45 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { connect } from "react-redux";
 
-import EmpresaApi from "./../../services/empresaApi";
+import EmpresaTableApi from "./../../services/empresaTableApi";
 
 import MyTable from "./../Components/Table";
 
-const TITLE = "Empresa";
+const EmpresaTable = ({ title, columns, index, load, del }) => {
+  useEffect(() => {
+    load();
+  }, [load]);
 
-const COLUMNS = [
-  { title: "Código", field: "id" },
-  { title: "Razão Social", field: "razaoSocial" },
-  { title: "Nome Fantasia", field: "nomeFantasia" },
-  { title: "CNPJ", field: "cnpj" },
-  { title: "Inscrição Estadual", field: "inscricaoEstadual" },
-  { title: "Telefone", field: "telefone" },
-];
-
-const Empresa = ({ load, index, del }) => (
-  <MyTable
-    title={TITLE}
-    columns={COLUMNS}
-    load={load}
-    index={index}
-    del={del}
-  />
-);
+  return <MyTable index={index} title={title} columns={columns} del={del} />;
+};
 
 const mapStateToProps = (state) => ({
-  index: state.empresa.index,
+  title: state.empresaTable.title,
+  columns: state.empresaTable.columns,
+  index: state.empresaTable.index,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     load: () => {
-      dispatch(EmpresaApi.empresaIndex());
+      dispatch(EmpresaTableApi.empresaIndex());
     },
     del: (data, id) => {
-      dispatch(EmpresaApi.empresaDelete(data, id));
+      dispatch(EmpresaTableApi.empresaDelete(data, id));
     },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Empresa);
+export default connect(mapStateToProps, mapDispatchToProps)(EmpresaTable);

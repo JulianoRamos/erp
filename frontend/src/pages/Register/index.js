@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 import {
   Container,
@@ -11,12 +12,17 @@ import {
   Typography,
 } from "@material-ui/core";
 
-import MyLink from "./../Components/Link";
-
 import useStyles from "./styles";
 
 const Register = () => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const handlerOnClickHome = (e) => {
+    e.preventDefault();
+    history.push("/");
+  };
+
   return (
     <Container component="main" className={classes.paper}>
       <Grid container justify="center" alignItems="center">
@@ -43,7 +49,7 @@ const Register = () => {
                   margin="normal"
                   required
                   fullWidth
-                  id="email"
+                  id="nomeCompleto"
                   label="Digitar nome completo"
                   name="nomecompleto"
                 />
@@ -69,9 +75,9 @@ const Register = () => {
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <MyLink to="/">
-                      <Link variant="body2">Já tem uma conta? Entrar</Link>
-                    </MyLink>
+                    <Link onClick={handlerOnClickHome} variant="body2">
+                      Já tem uma conta? Entrar
+                    </Link>
                   </Grid>
                 </Grid>
               </form>

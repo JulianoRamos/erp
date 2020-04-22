@@ -41,7 +41,7 @@ public class EmpresaController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<EmpresaDTO> index(@PathVariable Long id) {
+	public ResponseEntity<EmpresaDTO> findById(@PathVariable Long id) {
 		Optional<Empresa> empresa = service.findById(id);
 		if (empresa.isPresent()) {
 			return ResponseEntity.ok(new EmpresaDTO(empresa.get()));
@@ -52,8 +52,8 @@ public class EmpresaController {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<EmpresaDTO> create(@RequestBody @Valid EmpresaForm form, UriComponentsBuilder uriBuilder) {
-		Empresa empresa = service.create(form);
+	public ResponseEntity<EmpresaDTO> save(@RequestBody @Valid EmpresaForm form, UriComponentsBuilder uriBuilder) {
+		Empresa empresa = service.save(form);
 		
 		URI uri = uriBuilder.path("/{id}").buildAndExpand(empresa.getId()).toUri();
 		return ResponseEntity.created(uri).body(new EmpresaDTO(empresa));
