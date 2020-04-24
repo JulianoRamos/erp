@@ -53,7 +53,7 @@ const localization = {
   },
 };
 
-const MyTable = ({ title, columns, index, del }) => {
+const MyTable = ({ title, columns, data, del }) => {
   const history = useHistory();
   const match = useRouteMatch();
 
@@ -63,7 +63,7 @@ const MyTable = ({ title, columns, index, del }) => {
       localization={localization}
       title={title}
       columns={columns}
-      data={index ? index : []}
+      data={data ? data : []}
       style={{
         boxShadow: "none",
         borderWidth: 1,
@@ -71,14 +71,10 @@ const MyTable = ({ title, columns, index, del }) => {
         borderColor: "rgba(0, 0, 0, 0.12)",
       }}
       editable={{
-        onRowDelete: (oldIndex) =>
+        onRowDelete: (oldData) =>
           new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              const indexDelete = [...index];
-              indexDelete.splice(indexDelete.indexOf(oldIndex), 1);
-              del(indexDelete, oldIndex.id);
-            }, 600);
+            resolve();
+            del(oldData.id);
           }),
       }}
       options={{

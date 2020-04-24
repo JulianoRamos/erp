@@ -1,22 +1,16 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-
-import * as Actions from "./store/actions/main";
-
-import { isAuthenticated } from "./services/utils/auth";
+import { isAuthenticated } from "./utils/token";
 
 import Home from "./pages/Home";
 
-const PrivateRoutes = ({ component: Component, toggleMain, ...rest }) => (
+const PrivateRoutes = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) => {
-      toggleMain(props, Component);
       return isAuthenticated() ? (
-        <Home />
+        <Home props={props} component={Component} />
       ) : (
         <Redirect
           to={{ pathname: "/logon", state: { from: props.location } }}
@@ -26,8 +20,4 @@ const PrivateRoutes = ({ component: Component, toggleMain, ...rest }) => (
   />
 );
 
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = (dispatch) => bindActionCreators(Actions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(PrivateRoutes);
+export default PrivateRoutes;

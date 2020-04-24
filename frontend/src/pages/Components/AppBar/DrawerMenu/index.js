@@ -1,9 +1,6 @@
 import React from "react";
 
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-
-import * as Actions from "./../../../../store/actions/menu";
 
 import clsx from "clsx";
 import { useTheme } from "@material-ui/core/styles";
@@ -24,7 +21,7 @@ import {
 
 import useStyles from "./styles";
 
-const DrawerMenu = ({ open, handleDrawerOpen }) => {
+const DrawerMenu = ({ open, updateMenuFulfiled }) => {
   const classes = useStyles();
   const theme = useTheme();
   return (
@@ -42,7 +39,7 @@ const DrawerMenu = ({ open, handleDrawerOpen }) => {
       }}
     >
       <div className={classes.toolbar}>
-        <IconButton onClick={() => handleDrawerOpen(false)}>
+        <IconButton onClick={() => updateMenuFulfiled(false)}>
           {theme.direction === "rtl" ? (
             <ChevronRightIcon />
           ) : (
@@ -63,8 +60,12 @@ const DrawerMenu = ({ open, handleDrawerOpen }) => {
   );
 };
 
-const mapStateToProps = (state) => ({ open: state.menu.open });
+const mapStateToProps = (state) => ({
+  open: state.menu.open,
+});
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(Actions, dispatch);
+const mapDispatchToProps = (dispatch) => ({
+  updateMenuFulfiled: dispatch.menu.updateMenuFulfiled,
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerMenu);

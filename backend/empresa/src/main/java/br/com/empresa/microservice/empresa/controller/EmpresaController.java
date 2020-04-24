@@ -36,7 +36,7 @@ public class EmpresaController {
 	private EmpresaService service;	
 	
 	@GetMapping
-	public Page<EmpresaDTO> index(@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 9999) Pageable paginacao) {
+	public Page<EmpresaDTO> index(@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao) {
 		return service.findAll(paginacao);
 	}
 	

@@ -1,9 +1,6 @@
 import React from "react";
 
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-
-import * as Actions from "./../../../store/actions/menu";
 
 import clsx from "clsx";
 import { AppBar, Toolbar } from "@material-ui/core";
@@ -47,8 +44,12 @@ const MyAppBar = ({ open }) => {
   );
 };
 
-const mapStateToProps = (state) => ({ open: state.menu.open });
+const mapStateToProps = (state) => ({
+  open: state.menu.open,
+});
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(Actions, dispatch);
+const mapDispatchToProps = (dispatch) => ({
+  updateMenuFulfiled: dispatch.menu.updateMenuFulfiled,
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyAppBar);

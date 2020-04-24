@@ -1,11 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-
-import * as Actions from "./../../../store/actions/main";
-
 import useStyles from "./styles";
 
 const Main = ({ props, component }) => {
@@ -18,11 +13,4 @@ const Main = ({ props, component }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  props: state.main.props,
-  component: state.main.component,
-});
-
-const mapDispatchToProps = (dispatch) => bindActionCreators(Actions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

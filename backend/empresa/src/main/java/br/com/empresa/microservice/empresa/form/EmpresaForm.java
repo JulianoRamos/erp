@@ -9,39 +9,32 @@ import br.com.empresa.microservice.empresa.model.Empresa;
 
 public class EmpresaForm {
 
-	@NotNull @NotEmpty @Length(max = 40)
+	@NotNull @NotEmpty @Length(max = 60)
 	private String razaoSocial;
 
-	@NotNull @NotEmpty @Length(max = 40)
+	@NotNull @NotEmpty @Length(max = 60)
 	private String nomeFantasia;
 
-	@NotNull @NotEmpty @Length(min = 14, max = 14)
+	@Length(max = 14)
 	private String cnpj;
 
-	@NotNull @NotEmpty @Length(max = 14)
+	@Length(max = 14)
 	private String inscricaoEstadual;
-
-	@NotNull @NotEmpty
+	
 	private String telefone;
 
-	@NotNull @NotEmpty
 	private String email;
 
-	@NotNull @NotEmpty
 	private String cep;
-
-	@NotNull @NotEmpty
+	
 	private String logradouro;
 
-	@NotNull @NotEmpty
 	private String bairro;
 
-	@NotNull @NotEmpty
 	private String numero;
 	
 	private String complemento;
-
-	@NotNull @NotEmpty
+	
 	private String contador;
 
 	private String cnaePrincipal;

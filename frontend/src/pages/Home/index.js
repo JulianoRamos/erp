@@ -5,12 +5,12 @@ import Main from "./../Components/Main";
 
 import useStyles from "./styles";
 
-const Home = () => {
+const Home = ({ props, component }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <MyAppBar />
-      <Main />
+      <Main props={props} component={component} />
     </div>
   );
 };

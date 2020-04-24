@@ -7,24 +7,24 @@ import Logon from "./pages/Logon";
 import Register from "./pages/Register";
 import ResetPassword from "./pages/ResetPassword";
 
-import EmpresaTable from "./pages/EmpresaTable";
-import EmpresaForm from "./pages/EmpresaForm";
+import EmpresaTablePage from "./pages/EmpresaTable";
+import EmpresaFormPage from "./pages/EmpresaForm";
 
 const Routes = () => {
   return (
     <BrowserRouter>
       <Switch>
         <PrivateRoutes exact path="/" component={() => <div>Dash Board</div>} />
-        <PrivateRoutes exact path="/empresa" component={EmpresaTable} />
+        <PrivateRoutes exact path="/empresa" component={EmpresaTablePage} />
         <PrivateRoutes
           exact
           path="/empresa/adicionar"
-          component={EmpresaForm}
+          component={EmpresaFormPage}
         />
         <PrivateRoutes
           exact
           path="/empresa/editar/:id"
-          component={EmpresaForm}
+          component={EmpresaFormPage}
         />
 
         <PrivateRoutes

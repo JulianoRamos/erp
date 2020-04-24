@@ -7,10 +7,14 @@ import "./global.css";
 import store from "./store";
 import Routes from "./routes";
 
+import { SnackbarProvider } from "notistack";
+
 const App = () => {
   return (
     <Provider store={store}>
-      <Routes />
+      <SnackbarProvider maxSnack={3}>
+        <Routes />
+      </SnackbarProvider>
     </Provider>
   );
 };
