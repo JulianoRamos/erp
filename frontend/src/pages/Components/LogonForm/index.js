@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
@@ -13,7 +13,10 @@ import {
   CardContent,
   Container,
   Typography,
+  InputAdornment,
+  IconButton,
 } from "@material-ui/core";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { useSnackbar } from "notistack";
 import MyCircularProgress from "./../../../components/CircularProgress";
 
@@ -23,6 +26,7 @@ const LogonForm = ({ fetchAutenticacao, loading, errors }) => {
   const history = useHistory();
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (errors.global) {
@@ -52,6 +56,10 @@ const LogonForm = ({ fetchAutenticacao, loading, errors }) => {
   const handlerOnClickRegister = (e) => {
     e.preventDefault();
     history.push("/register");
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -122,7 +130,7 @@ const LogonForm = ({ fetchAutenticacao, loading, errors }) => {
                         margin="dense"
                         name="password"
                         label="Digite aqui sua senha"
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         id="password"
                         fullWidth
                         value={values.password}
@@ -132,6 +140,19 @@ const LogonForm = ({ fetchAutenticacao, loading, errors }) => {
                           errors.password && touched.password && errors.password
                         }
                         error={errors.password && touched.password}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton onClick={handleClickShowPassword}>
+                                {showPassword ? (
+                                  <Visibility />
+                                ) : (
+                                  <VisibilityOff />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
                       />
                       <FormControlLabel
                         control={
