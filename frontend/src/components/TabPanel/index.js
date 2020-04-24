@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Box } from "@material-ui/core";
 
-const TabPanel = (props) => {
+const MyTabPanel = (props) => {
   const { children, value, index, ...other } = props;
   return (
     <Typography
@@ -12,9 +12,9 @@ const TabPanel = (props) => {
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      {value === index && <Box p={1}>{children}</Box>}
+      {value === index && <Box pt={1}>{children}</Box>}
     </Typography>
   );
 };
 
-export default TabPanel;
+export default MyTabPanel;

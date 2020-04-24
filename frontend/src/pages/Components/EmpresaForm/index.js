@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { createMuiTheme } from "@material-ui/core/styles";
 import {
   Card,
   CardHeader,
@@ -10,32 +9,13 @@ import {
   AppBar,
   Tab,
   Tabs,
-  Typography,
-  Box,
   MenuItem,
 } from "@material-ui/core";
 import { Formik } from "formik";
 import * as Yup from "yup";
+
+import MyTabPanel from "./../../../components/TabPanel";
 import MyCircularProgress from "./../../../components/CircularProgress";
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box pt={1}>{children}</Box>}
-    </Typography>
-  );
-}
-
-const theme = createMuiTheme();
 
 const defaultFormShape = {
   razaoSocial: "",
@@ -131,11 +111,7 @@ class EmpresaForm extends Component {
                       <Tab label="Fiscal" />
                     </Tabs>
                   </AppBar>
-                  <TabPanel
-                    value={this.state.value}
-                    index={0}
-                    dir={theme.direction}
-                  >
+                  <MyTabPanel value={this.state.value} index={0}>
                     <TextField
                       required
                       style={{ marginTop: 8, marginBottom: 8 }}
@@ -219,12 +195,8 @@ class EmpresaForm extends Component {
                       helperText={errors.email && touched.email && errors.email}
                       error={errors.email && touched.email}
                     />
-                  </TabPanel>
-                  <TabPanel
-                    value={this.state.value}
-                    index={1}
-                    dir={theme.direction}
-                  >
+                  </MyTabPanel>
+                  <MyTabPanel value={this.state.value} index={1}>
                     <TextField
                       label="Cep"
                       style={{ marginTop: 8, marginBottom: 8 }}
@@ -291,12 +263,8 @@ class EmpresaForm extends Component {
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
-                  </TabPanel>
-                  <TabPanel
-                    value={this.state.value}
-                    index={2}
-                    dir={theme.direction}
-                  >
+                  </MyTabPanel>
+                  <MyTabPanel value={this.state.value} index={2}>
                     <TextField
                       label="Contador"
                       style={{ marginTop: 8, marginBottom: 8 }}
@@ -336,7 +304,7 @@ class EmpresaForm extends Component {
                       <MenuItem value="LP">Lucro Presumido</MenuItem>
                       <MenuItem value="LR">Lucro Real</MenuItem>
                     </TextField>
-                  </TabPanel>
+                  </MyTabPanel>
                 </CardContent>
               </form>
             </Card>
