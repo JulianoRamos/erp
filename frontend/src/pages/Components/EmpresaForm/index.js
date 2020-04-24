@@ -16,7 +16,7 @@ import {
 } from "@material-ui/core";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import MyCircularProgress from "./../CircularProgress";
+import MyCircularProgress from "./../../../components/CircularProgress";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

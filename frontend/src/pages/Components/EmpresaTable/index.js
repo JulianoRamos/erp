@@ -1,5 +1,5 @@
 import React from "react";
-import MyTable from "../Table";
+import MyTable from "../../../components/Table";
 
 export default function EmpresaTable({ empresas, deleteEmpresa }) {
   const title = "Empresa";

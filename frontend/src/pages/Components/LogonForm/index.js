@@ -15,7 +15,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useSnackbar } from "notistack";
-import MyCircularProgress from "./../CircularProgress";
+import MyCircularProgress from "./../../../components/CircularProgress";
 
 import useStyles from "./styles";
 

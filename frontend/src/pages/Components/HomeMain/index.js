@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 
 import useStyles from "./styles";
 
-const Main = ({ props, component }) => {
+const HomeMain = ({ props, component }) => {
   const classes = useStyles();
   return (
     <main className={classes.content}>
@@ -13,4 +13,4 @@ const Main = ({ props, component }) => {
   );
 };
 
-export default Main;
+export default HomeMain;

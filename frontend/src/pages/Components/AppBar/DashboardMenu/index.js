@@ -1,17 +1,19 @@
 import React from "react";
 
+import { useHistory } from "react-router-dom";
+
 import { IconButton } from "@material-ui/core";
 import { Dashboard as DashboardIcon } from "@material-ui/icons";
 
-import MyLink from "./../../Link";
-
 const DashboardMenu = () => {
+  const history = useHistory();
+  const handlerOnClick = (e) => {
+    history.push("/");
+  };
   return (
-    <MyLink to="/">
-      <IconButton color="inherit">
-        <DashboardIcon />
-      </IconButton>
-    </MyLink>
+    <IconButton onClick={handlerOnClick} color="inherit">
+      <DashboardIcon />
+    </IconButton>
   );
 };
 
