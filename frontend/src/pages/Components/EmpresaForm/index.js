@@ -56,6 +56,7 @@ class EmpresaForm extends Component {
         .required("O campo é obrigatório.")
         .max(60, "O campo deve ter no máximo 60 caracteres."),
       email: Yup.string().email("Digite um email válido."),
+      regimeTributario: Yup.string().required("O campo é obrigatório."),
     });
 
     return (
