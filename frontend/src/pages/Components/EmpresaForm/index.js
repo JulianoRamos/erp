@@ -10,7 +10,10 @@ import {
   Tab,
   Tabs,
   MenuItem,
+  InputAdornment,
+  IconButton,
 } from "@material-ui/core";
+import { Search } from "@material-ui/icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -160,6 +163,15 @@ class EmpresaForm extends Component {
                       value={values.cnpj}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton>
+                              <Search />
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
                     />
                     <TextField
                       label="Inscrição Estadual (IE)"
@@ -208,6 +220,15 @@ class EmpresaForm extends Component {
                       value={values.cep}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton>
+                              <Search />
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
                     />
                     <TextField
                       label="Logradouro"
