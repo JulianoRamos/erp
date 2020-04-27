@@ -32,6 +32,8 @@ public class EmpresaDTO {
 
 	private String complemento;
 
+	private MunicipioDTO municipio;
+
 	private String contador;
 
 	private String cnaePrincipal;
@@ -66,6 +68,10 @@ public class EmpresaDTO {
 		this.dataCadastro = empresa.getDataCadastro();
 		this.usuarioAlteracao = empresa.getUsuarioAlteracao();
 		this.usuario = empresa.getUsuario();
+
+		if (empresa.getMunicipio() != null) {
+			this.municipio = new MunicipioDTO(empresa.getMunicipio().getId().intValue());
+		}
 	}
 
 	public Long getId() {
@@ -162,6 +168,14 @@ public class EmpresaDTO {
 
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
+	}
+
+	public MunicipioDTO getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(MunicipioDTO municipio) {
+		this.municipio = municipio;
 	}
 
 	public String getContador() {

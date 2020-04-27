@@ -6,13 +6,19 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import br.com.empresa.microservice.empresa.model.Empresa;
+import br.com.empresa.microservice.empresa.model.Municipio;
+import br.com.empresa.microservice.empresa.repository.MunicipioRepository;
 
 public class EmpresaForm {
 
-	@NotNull @NotEmpty @Length(max = 60)
+	@NotNull
+	@NotEmpty
+	@Length(max = 60)
 	private String razaoSocial;
 
-	@NotNull @NotEmpty @Length(max = 60)
+	@NotNull
+	@NotEmpty
+	@Length(max = 60)
 	private String nomeFantasia;
 
 	@Length(max = 14)
@@ -20,26 +26,29 @@ public class EmpresaForm {
 
 	@Length(max = 14)
 	private String inscricaoEstadual;
-	
+
 	private String telefone;
 
 	private String email;
 
 	private String cep;
-	
+
 	private String logradouro;
 
 	private String bairro;
 
 	private String numero;
-	
+
 	private String complemento;
-	
+
+	private Long idMunicipio;
+
 	private String contador;
 
 	private String cnaePrincipal;
 
-	@NotNull @NotEmpty
+	@NotNull
+	@NotEmpty
 	private String regimeTributario;
 
 	public String getRazaoSocial() {
@@ -130,6 +139,14 @@ public class EmpresaForm {
 		this.complemento = complemento;
 	}
 
+	public Long getIdMunicipio() {
+		return idMunicipio;
+	}
+
+	public void setIdMunicipio(Long idMunicipio) {
+		this.idMunicipio = idMunicipio;
+	}
+
 	public String getContador() {
 		return contador;
 	}
@@ -154,8 +171,9 @@ public class EmpresaForm {
 		this.regimeTributario = regimeTributario;
 	}
 
-	public Empresa converter() {
+	public Empresa converter(MunicipioRepository municipioRepository) {
+		Municipio municipio = municipioRepository.getOne(idMunicipio);
 		return new Empresa(razaoSocial, nomeFantasia, cnpj, inscricaoEstadual, telefone, email, cep, logradouro, bairro,
-				numero, complemento, contador, cnaePrincipal, regimeTributario);
+				numero, complemento, municipio, contador, cnaePrincipal, regimeTributario);
 	}
 }

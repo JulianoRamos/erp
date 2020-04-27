@@ -27,44 +27,50 @@ import br.com.empresa.microservice.empresa.form.EmpresaForm;
 import br.com.empresa.microservice.empresa.form.UpdateEmpresaForm;
 import br.com.empresa.microservice.empresa.model.Empresa;
 import br.com.empresa.microservice.empresa.service.EmpresaService;
+import br.com.empresa.microservice.empresa.service.MunicipioService;
 
 @RestController
 @RequestMapping("/")
 public class EmpresaController {
 
 	@Autowired
-	private EmpresaService service;	
-	
+	private EmpresaService empresaService;
+
+	@Autowired
+	private MunicipioService municipioService;
+
 	@GetMapping
-	public Page<EmpresaDTO> index(@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao) {
-		return service.findAll(paginacao);
+	public Page<EmpresaDTO> index(
+			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao) {
+		return empresaService.findAll(paginacao);
+//		this.respostas.addAll(topico.getRespostas().stream().map(RespostaDto::new).collect(Collectors.toList()));
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<EmpresaDTO> findById(@PathVariable Long id) {
-		Optional<Empresa> empresa = service.findById(id);
+		Optional<Empresa> empresa = empresaService.findById(id);
 		if (empresa.isPresent()) {
 			return ResponseEntity.ok(new EmpresaDTO(empresa.get()));
 		}
 
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@PostMapping
 	@Transactional
 	public ResponseEntity<EmpresaDTO> save(@RequestBody @Valid EmpresaForm form, UriComponentsBuilder uriBuilder) {
-		Empresa empresa = service.save(form);
-		
+		Empresa empresa = empresaService.save(form);
+
 		URI uri = uriBuilder.path("/{id}").buildAndExpand(empresa.getId()).toUri();
 		return ResponseEntity.created(uri).body(new EmpresaDTO(empresa));
 	}
-	
+
 	@PutMapping("/{id}")
 	@Transactional
 	public ResponseEntity<EmpresaDTO> update(@PathVariable Long id, @RequestBody @Valid UpdateEmpresaForm form) {
-		Optional<Empresa> optional = service.findById(id);
+		Optional<Empresa> optional = empresaService.findById(id);
 		if (optional.isPresent()) {
-			Empresa empresa = form.update(id, service);
+			Empresa empresa = form.update(id, empresaService, municipioService);
 			return ResponseEntity.ok(new EmpresaDTO(empresa));
 		}
 
@@ -74,9 +80,9 @@ public class EmpresaController {
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<Long> delete(@PathVariable Long id) {
-		Optional<Empresa> optional = service.findById(id);
+		Optional<Empresa> optional = empresaService.findById(id);
 		if (optional.isPresent()) {
-			service.deleteById(id);
+			empresaService.deleteById(id);
 			return ResponseEntity.ok(id);
 		}
 

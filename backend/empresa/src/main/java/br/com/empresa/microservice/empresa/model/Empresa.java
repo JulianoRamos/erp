@@ -7,58 +7,64 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Empresa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String razaoSocial;
-	
+
 	private String nomeFantasia;
-	
+
 	private String cnpj;
-	
+
 	private String inscricaoEstadual;
-	
+
 	private String telefone;
-	
+
 	private String email;
-	
+
 	private String cep;
-	
+
 	private String logradouro;
-	
+
 	private String bairro;
-	
+
 	private String numero;
-	
+
 	private String complemento;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "idMunicipio")
+	private Municipio municipio;
+
 	private String contador;
-	
+
 	private String cnaePrincipal;
-	
+
 	private String regimeTributario;
-	
+
 	private LocalDate dataAlteracao;
-	
+
 	private LocalDate dataCadastro;
-	
+
 	private String usuarioAlteracao;
-	
+
 	private String usuario;
 
 	public Empresa() {
 	}
 
-	public Empresa(String razaoSocial, String nomeFantasia, String cnpj, String inscricaoEstadual,
-			String telefone, String email, String cep, String logradouro, String bairro, String numero,
-			String complemento, String contador, String cnaePrincipal, String regimeTributario) {
+	public Empresa(String razaoSocial, String nomeFantasia, String cnpj, String inscricaoEstadual, String telefone,
+			String email, String cep, String logradouro, String bairro, String numero, String complemento,
+			Municipio municipio, String contador, String cnaePrincipal, String regimeTributario) {
 		this.razaoSocial = razaoSocial;
 		this.nomeFantasia = nomeFantasia;
 		this.cnpj = cnpj;
@@ -70,6 +76,7 @@ public class Empresa implements Serializable {
 		this.bairro = bairro;
 		this.numero = numero;
 		this.complemento = complemento;
+		this.municipio = municipio;
 		this.contador = contador;
 		this.cnaePrincipal = cnaePrincipal;
 		this.regimeTributario = regimeTributario;
@@ -171,6 +178,14 @@ public class Empresa implements Serializable {
 		this.complemento = complemento;
 	}
 
+	public Municipio getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(Municipio municipio) {
+		this.municipio = municipio;
+	}
+
 	public String getContador() {
 		return contador;
 	}
@@ -250,5 +265,5 @@ public class Empresa implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
+	}
 }
