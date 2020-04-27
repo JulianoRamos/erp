@@ -10,11 +10,13 @@ import ResetPassword from "./pages/ResetPassword";
 import EmpresaTablePage from "./pages/EmpresaTable";
 import EmpresaFormPage from "./pages/EmpresaForm";
 
+import MyMunicipio from "./components/Municipio";
+
 const Routes = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <PrivateRoutes exact path="/" component={() => <div>Dash Board</div>} />
+        <PrivateRoutes exact path="/" component={MyMunicipio} />
         <PrivateRoutes exact path="/empresa" component={EmpresaTablePage} />
         <PrivateRoutes
           exact

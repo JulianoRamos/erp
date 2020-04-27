@@ -29,7 +29,7 @@ const autenticacao = {
     newAutenticacao: (state) => {
       return {
         ...state,
-        empresa: {},
+        autenticacao: {},
       };
     },
 
@@ -52,7 +52,7 @@ const autenticacao = {
       };
     },
 
-    fetchAutenticacaRejected: (state, response) => {
+    fetchAutenticacaoRejected: (state, response) => {
       const errors = {
         global: statusCodeResponses(response.status),
       };
@@ -74,7 +74,7 @@ const autenticacao = {
           dispatch.autenticacao.fetchAutenticacaoFulfiled(res.data);
         })
         .catch((err) => {
-          dispatch.autenticacao.fetchAutenticacaRejected(err.response);
+          dispatch.autenticacao.fetchAutenticacaoRejected(err.response);
         });
     },
   }),
